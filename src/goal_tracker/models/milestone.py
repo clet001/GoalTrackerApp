@@ -1,10 +1,10 @@
 import uuid
 from datetime import datetime
 from enum import Enum
+from typing import Optional
 from uuid import UUID
 
-import Field
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class MilestoneStatus(str, Enum):
@@ -14,11 +14,12 @@ class MilestoneStatus(str, Enum):
 
 
 
-class milestone(BaseModel):
-    id: UUID = Field(default_factory=uuid)
+class Milestone(BaseModel):
+    id: UUID = Field(default_factory=uuid4)
     goal_id:UUID
     title: str
     description: str
     target_date: datetime
     status: MilestoneStatus
-    completed_at: datetime
+    completed_at: Optional[datetime]= None
+    
