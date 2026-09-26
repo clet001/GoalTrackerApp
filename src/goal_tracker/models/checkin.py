@@ -1,8 +1,10 @@
+import uuid
 from enum import Enum
 from uuid import UUID
 
-from DateTime import DateTime
-from pydantic import BaseModel
+from datetime import datetime
+from pydantic import BaseModel, Field
+
 
 class CheckinStatus(str, Enum):
     SCHEDULED = "scheduled"
@@ -12,9 +14,9 @@ class CheckinStatus(str, Enum):
 
 
 class Checkin(BaseModel):
-    id:UUID
+    id:UUID = Field(default_factory=uuid.uuid4)
     goal_id: UUID
-    scheduled_for: DateTime
-    status: CheckinStatus
-    response:str
-    responded_at: DateTime
+    scheduled_for: datetime
+    status: CheckinStatus = CheckinStatus.SCHEDULED
+    response:str | None = None
+    responded_at: datetime | None = None

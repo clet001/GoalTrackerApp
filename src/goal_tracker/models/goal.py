@@ -3,7 +3,7 @@ from typing import Optional
 from uuid import UUID, uuid4
 from datetime import date, datetime, timezone
 from pydantic import BaseModel, Field
-from pydantic_extra_types.epoch import Integer
+
 
 class GoalStatus(str, Enum):
     NOT_STARTED = "not_started"
@@ -13,13 +13,14 @@ class GoalStatus(str, Enum):
     PAUSED = "paused"
 
 class Goal(BaseModel):
-    id: Optional[UUID] = Field(default_factory=uuid4)
-    user_id: Optional[UUID] = Field(default_factory=uuid4)
+    id: UUID = Field(default_factory=uuid4)
+    user_id: UUID
     title: str
     description: str
     start_date: date
     target_date: date
-    status: GoalStatus
-    progress: Integer
-    created_at: datetime
-    updated_at: datetime
+    status: GoalStatus = GoalStatus.NOT_STARTED
+    progress: int = Field(ge=0, le=100)
+    completed_at: Optional[datetime] = Field(default_factory=datetime.now)
+    created_at: datetime = Field(default_factory=datetime.now)
+    updated_at: datetime = Field(default_factory=datetime.now)

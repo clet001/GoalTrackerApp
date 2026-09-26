@@ -15,11 +15,10 @@ class MilestoneStatus(str, Enum):
 
 
 class Milestone(BaseModel):
-    id: UUID = Field(default_factory=uuid4)
+    id: UUID = Field(default_factory=uuid.uuid4)
     goal_id:UUID
     title: str
     description: str
     target_date: datetime
     status: MilestoneStatus
-    completed_at: Optional[datetime]= None
-    
+    completed_at: datetime | None = None
