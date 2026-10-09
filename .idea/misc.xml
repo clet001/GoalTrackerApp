@@ -3,4 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="uv (goal_tracker)" />
   </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="~/Projects/GoalTrackerApp/.venv" project-jdk-type="Python SDK" />
 </project>
