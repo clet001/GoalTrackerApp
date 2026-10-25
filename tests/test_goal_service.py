@@ -6,6 +6,7 @@ import pytest
 
 from goal_tracker.models.goal import Goal
 from goal_tracker.repositories.goal_repository import GoalRepository
+from goal_tracker.services.exceptions import GoalNotFoundError
 from goal_tracker.services.goal_service import GoalService
 
 
@@ -117,7 +118,7 @@ def test_that_error_is_raised_when_goal_does_not_exist():
     goal_id = uuid4()
     repository.get_goal_by_id.return_value = None
 
-    with pytest.raises(ValueError, match="Goal not found"):
+    with pytest.raises(GoalNotFoundError, match="Goal not found"):
         service.get_goal_by_id(goal_id)
 
 
@@ -137,7 +138,7 @@ def test_that_error_is_raised_when_updating_nonexistent_goal():
         progress=50
     )
 
-    with pytest.raises(ValueError, match="Goal not found"):
+    with pytest.raises(GoalNotFoundError, match="Goal not found"):
         service.update_goal(goal_id, goal)
 
 
@@ -148,7 +149,7 @@ def test_that_error_is_raised_when_deleting_nonexistent_goal():
     goal_id = uuid4()
     repository.get_goal_by_id.return_value = None
 
-    with pytest.raises(ValueError, match="Goal not found"):
+    with pytest.raises(GoalNotFoundError, match="Goal not found"):
         service.delete_goal(goal_id)
 
     repository.delete_goal.assert_not_called()

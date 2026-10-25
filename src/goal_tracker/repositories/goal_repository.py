@@ -15,7 +15,7 @@ class GoalRepository(ABC):
     def delete_goal(self, goal_id: UUID) -> None:
         ...
     @abstractmethod
-    def get_goal_by_id(self, goal_id: UUID) -> Goal:
+    def get_goal_by_id(self, goal_id: UUID) -> Goal | None:
         ...
     @abstractmethod
     def get_goal_by_title(self, goal_title:str) -> list[Goal]:
